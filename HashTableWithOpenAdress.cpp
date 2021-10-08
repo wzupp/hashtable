@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include <vector>
 
 using namespace std;
 
@@ -28,13 +29,21 @@ public:
 };
 
 template<typename K, typename V>
+std::ostream& operator<< (std::ostream &out, const HashNode<K, V> &hd)
+{
+    out << "HashNode (key = " << hd.key << ", value = " << hd.value << ")";
+ 
+    return out;
+}
+
+template<typename K, typename V>
 
 class HashMap
 
 {
 
-
-    HashNode<K, V>** arr;
+    std::vector<HashNode<K, V>*> arr;
+    //HashNode<K, V>** arr;
 
     int capacity;
 
@@ -57,8 +66,9 @@ public:
         capacity = 20;
 
         size = 0;
-
-        arr = new HashNode<K, V>*[capacity];
+	
+	arr.resize(capacity);
+        //arr = new HashNode<K, V>*[capacity];
 
         for (int i = 0; i < capacity; i++)
 
@@ -174,15 +184,17 @@ bool isEmpty()
 
     }
 
+
 void display()
     {
-
+	//copy(arr.begin(), arr.end(), ostream_iterator<HashMap<K, V>>(cout," "));
         for (int i = 0; i < capacity; i++)
         {
 
             if (arr[i] != NULL && arr[i]->key != -1)
-                cout << "key = " << arr[i]->key
-                << "  value = " << arr[i]->value << endl;
+		cout << *arr[i] << endl;
+                //cout << "key = " << arr[i]->key
+                //<< "  value = " << arr[i]->value << endl;
 
         }
 
@@ -202,7 +214,9 @@ int main()
     cout << h->deleteNode(2) << endl;
     cout << h->sizeofMap() << endl;
     cout << h->isEmpty() << endl;
-    cout << h->get(2);
+    cout << h->get(2) << endl;
+    
+    
 
     return 0;
 }
